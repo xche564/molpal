@@ -143,6 +143,12 @@ def add_pool_args(parser: ArgumentParser):
         nargs="*",
         help="the indices in the overall library (potentially consisting of multiple library files) containing invalid SMILES strings. Adding this flag with 0 arguments corresponds to a library with _0_ invalid SMILES strings.",
     )
+    parser.add_argument(
+        "--dataset-type",
+        default="regression",
+        choices={"regression", "classification", "classification_imbalanced"},
+        help="the type of dataset to use",
+    )
 
 
 #################################

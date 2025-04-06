@@ -358,6 +358,7 @@ class MPNDropoutModel(Model):
             ddp=ddp,
             precision=precision,
             model_seed=model_seed,
+            dataset_type=kwargs["dataset_type"]
         )
         self.model = self.build_model()
 
@@ -418,7 +419,13 @@ class MPNTwoOutputModel(Model):
         test_batch_size = test_batch_size or 1000000
 
         self.build_model = partial(
-            MPNN, uncertainty="mve", ncpu=ncpu, ddp=ddp, precision=precision, model_seed=model_seed
+            MPNN, 
+            uncertainty="mve", 
+            ncpu=ncpu, 
+            ddp=ddp, 
+            precision=precision, 
+            model_seed=model_seed, 
+            dataset_type=kwargs["dataset_type"]
         )
         self.model = self.build_model()
 
