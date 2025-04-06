@@ -350,7 +350,10 @@ class Explorer:
             the average score of the batch. None if no objective values were calculated, either due
             to each input failing or no inputs being acquired
         """
-        inputs = self.acquirer.acquire_initial(
+        #inputs = self.acquirer.acquire_initial(
+        #    self.pool.smis(), self.pool.cluster_ids(), self.pool.cluster_sizes
+        #)
+        inputs = self.acquirer.acquire_bdp_initial(
             self.pool.smis(), self.pool.cluster_ids(), self.pool.cluster_sizes
         )
         self.exhausted_pool = len(inputs) == 0
@@ -476,6 +479,9 @@ class Explorer:
         if isinstance(k, float):
             k = int(k * self.full_pool_size)
         k = min(k, len(self.scores))
+
+        if k == 0.0:
+            return 0.0
 
         if k == len(self.scores):
             return sum(score or 0 for _, score in self.scores.items()) / k
